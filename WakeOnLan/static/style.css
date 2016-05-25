@@ -1,0 +1,74 @@
+body { padding-bottom: 70px; }
+
+.devicepanel {
+	border-style: solid;
+  border-width: 1px;
+	border-color: #d9534f;
+	margin-bottom: .5em;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.device {
+  display: block;
+  position: relative;
+  padding: .75em 5em .75em 1em;
+  border-radius: .25em;
+  margin-bottom: .5em;
+  background: #F2EFEF;
+  box-shadow:
+    /* regular bottom */
+    0 .0625em .125em rgba(0, 0, 0, .125),
+    /* category color (left) */
+    inset 1em 0 0 -.7em rgba(175, 175, 175, 0.7),
+    /* arrow background (right) */
+    inset -2em 0 0 -.3em rgba(175, 175, 175, 0.7);
+}
+
+.device-up {
+  box-shadow:
+    0 .0625em .125em rgba(0, 0, 0, .125),
+    inset 1em 0 0 -.7em rgba(0, 95, 210, .5),
+    inset -2em 0 0 -.3em rgba(0, 95, 210, .5);
+}
+
+.device-down {
+	  box-shadow:
+    0 .0625em .125em rgba(0, 0, 0, .125),
+    inset 1em 0 0 -.7em rgba(217, 83, 79, 1),
+    inset -2em 0 0 -.3em rgba(217, 83, 79, 1);
+}
+
+.device-name {
+  font-weight: bold;
+  color: #000;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.device-name:after {
+  content: '';
+  display: block;
+  height: 0;
+  width: 100%;
+}
+
+
+.chevron {
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: .75em;
+  position: absolute;
+  right: .667em;
+  top: 50%;
+  margin-top: -.6em; /* just eyeballing it */
+  color: #fff;
+}
+
+div.chevron a{
+  color: #fff;
+  text-decoration: none;
+}

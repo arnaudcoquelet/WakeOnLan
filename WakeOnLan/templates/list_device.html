@@ -1,0 +1,63 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+
+{% block content %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+
+{{util.flashed_messages(dismissible=True)}}
+<div class="container">
+    <div class="header navbar-default">
+        <div class="row" style="display: flex;align-items: center;">
+            <div class="col-xs-8 ">
+                <h1>Delete</h1>
+            </div>
+        </div>
+    </div>
+  </br>
+
+    <div>
+        {% for device in devices %}
+                {% if device["status"] == 'UP' %}
+                    {% set devicestyle = 'device-up' %}
+                {% elif device["status"] == 'DOWN' %}
+                    {% set devicestyle = 'device-down' %}
+                {% else %}
+                    {% set devicestyle = '' %}
+                {% endif %}
+
+        <div class="device {{ devicestyle }}">
+          <span class="device-name">{{ device["name"] }}</span>
+          <div class="chevron">
+            <a href="/deleteDevice/{{ device['id'] }}">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+        </br>
+        <div class="navbar-fixed-bottom">
+            <a href="/" type="button" class="btn btn-success btn-block">
+                <b>Done</b>
+            </a>
+        </div>
+    </div>
+
+<script type="text/javascript" defer>
+    window.onload = function(e){ 
+    $("div.container.flashed-messages").show().delay(3000).fadeOut(400);
+
+    }
+</script>
+    
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{% endblock %}
+
+

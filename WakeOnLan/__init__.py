@@ -19,23 +19,6 @@ from wakeonlan import wol
 class Device(Document):
     pass
 
-
-# class Device():
-#     device_database = { 
-#         "00:11:22:33:44:55" : { "name" : "PC 1", "mac" : "00:11:22:33:44:55", "ip":"192.168.222.111"},
-#         "00:11:22:33:44:66" : { "name" : "PC 2", "mac" : "00:11:22:33:44:66", "ip":"192.168.222.112"},
-#         "00:11:22:33:44:77" : { "name" : "PC 3", "mac" : "00:11:22:33:44:77", "ip":"192.168.222.113"},
-#         "00:11:22:33:44:88" : { "name" : "PC 4", "mac" : "00:11:22:33:44:88", "ip":"192.168.222.114"},
-#           }
-
-#     @classmethod
-#     def getByMac(cls, mac):
-#         return cls.device_database.get(mac)
-
-#     @classmethod
-#     def getAll(cls):
-#         return cls.device_database
-
 #
 class User(UserMixin):
     user_database = { "arnaudco" : ("arnaudco","arnaud")}
@@ -251,7 +234,7 @@ def create_app(configfile=None):
         # flash('different message', 'different')
         # flash('uncategorized message')
         alldevices = None
-        alldevices = backend.filter(Device, {}).sort('mac')
+        alldevices = backend.filter(Device, {}).sort('name')
 
         #app.logger.info('Devices: %s' % (len(alldevices) ) )
 
@@ -299,8 +282,26 @@ def create_app(configfile=None):
         name = request.form['name']
         mac = request.form['mac']
         ip = request.form['ip']
+        id = mac.replace(':','')
+
+        try:
+            newDevice = Device({"id" : id, "name" : name, "mac" : mac, "ip":ip, 'status' : ''})
+            backend.save(newDevice)
+            backend.commit()
+        except:
+            flash('Error creating new Device', 'error')
+            pass
 
         return redirect(url_for('index'))
+
+
+    @app.route('/editListDevice', methods=('GET', 'POST'))
+    @login_required
+    def editListDevice():
+        alldevices = None
+        alldevices = backend.filter(Device, {}).sort('name')
+
+        return render_template('list_device.html', devices = alldevices)
 
 
 
@@ -334,6 +335,23 @@ def create_app(configfile=None):
             flash('WoL error', 'error')
 
         return redirect(url_for('index'))
+
+
+    @app.route('/deleteDevice/<deviceId>', methods=('GET', 'POST'))
+    @login_required
+    def deleteDevice(deviceId):
+        app.logger.info('wolDevice: %s' % (deviceId ) )
+        device = getDeviceById(deviceId)
+
+        try:
+            backend.delete(device)
+            backend.commit()
+            flash('%s Deleted' % (device['name']), 'info')
+        except:
+            flash('Delete error', 'error')
+            pass
+
+        return redirect(url_for('editListDevice'))
 
 
     return app
