@@ -33,13 +33,15 @@
                     {% set devicestyle = '' %}
                 {% endif %}
             <div class="">
+                <a data-toggle="collapse" data-target="#panel-{{ device['id'] }}" href="#panel-{{ device['id'] }}">
                 <div class="device {{ devicestyle }}" data-toggle="collapse" data-target="#panel-{{ device['id'] }}" href="#panel-{{ device['id'] }}">
                   <span class="device-name">{{ device["name"] }}</span>
                   <div class="chevron">
                   <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                   </div>
                 </div>
-
+                </a>
+                
                 <div id="panel-{{ device['id'] }}" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="row">
