@@ -13,4 +13,4 @@ from WakeOnLan import create_app
 # create an app instance
 app = create_app()
 
-app.run(debug=True)
+app.run(host='0.0.0.0',debug=False)
