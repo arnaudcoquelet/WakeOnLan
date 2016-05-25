@@ -122,8 +122,11 @@ class ExampleForm(Form):
 
 
 def pingDeviceByIp(ip):
-    r = pyping.ping(ip)
-    return r.ret_code
+    try:
+        r = pyping.ping(ip)
+        return r.ret_code
+    except:
+        return None
 
 
 def wolDeviceByMac(mac):
@@ -314,7 +317,9 @@ def create_app(configfile=None):
 
         app.logger.info('pingDevice: %s' % (result ) )
 
-        if result == 0:
+        if result is None:
+            flash('Ping - Error on device %s' % (device['name']), 'error')
+        elif result == 0:
             flash('Device %s is UP' % (device['name']), 'info')
         else:
             flash('Device %s is DOWN' % (device['name']), 'error')
