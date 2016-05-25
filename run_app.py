@@ -8,7 +8,7 @@ import sys
 
 sys.path.append(os.path.dirname(__name__))
 
-from sample import create_app
+from WakeOnLan import create_app
 
 # create an app instance
 app = create_app()
