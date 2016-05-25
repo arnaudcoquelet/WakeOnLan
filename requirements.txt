@@ -1,0 +1,8 @@
+blitzdb >= 0.2.12
+Flask >= 0.10.1
+flask_appconfig >= 0.11.1
+Flask_Bootstrap >= 3.3.6.0
+Flask_WTF >= 0.12
+pyping >= 0.0.4
+wakeonlan >= 0.2.2
+WTForms >= 2.1
