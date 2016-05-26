@@ -1,0 +1,14 @@
+[Unit]
+Description=WakeOnLan Webserver
+After=network.target
+
+[Service]
+Type=forking
+User=root
+Group=root
+ExecStart=/opt/WakeOnLan/run.sh
+WorkingDirectory=/opt/WakeOnLan
+
+[Install]
+WantedBy=multi-user.target
+

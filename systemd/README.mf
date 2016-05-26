@@ -1,0 +1,1 @@
+Copy the wakeonlan.service file to /etc/systemd/system
