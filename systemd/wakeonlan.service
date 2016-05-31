@@ -1,14 +1,14 @@
 [Unit]
-Description=WakeOnLan Webserver
+Description=WakeOnLan WebServer
 After=network.target
 
 [Service]
-Type=forking
 User=root
 Group=root
 ExecStart=/opt/WakeOnLan/run.sh
-WorkingDirectory=/opt/WakeOnLan
+WorkingDirectory = /opt/WakeOnLan
+Restart=always
+RestartSec=10                       # Restart service after 10 seconds if node service crashes
 
 [Install]
 WantedBy=multi-user.target
-
